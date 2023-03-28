@@ -8,23 +8,27 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aimrane.pokemonlistapplication.models.Pokemon;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GridAdapter extends BaseAdapter {
 
     Context context;
-    Pokemon[] pokemons;
-    int[] image;
-
+    List<String> pokemons;
+    List<String> imgs;
     LayoutInflater inflater;
 
-    public GridAdapter(Context context, Pokemon[] pokemons, int[] image) {
+    public GridAdapter(Context context, List<String> pokemons, List<String> image) {
         this.context = context;
         this.pokemons = pokemons;
-        this.image = image;
+        this.imgs = imgs;
     }
 
     @Override
     public int getCount() {
-        return pokemons.length;
+        return pokemons.size();
     }
 
     @Override
@@ -52,7 +56,7 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView = convertView.findViewById(R.id.grid_image);
         TextView textView = convertView.findViewById(R.id.item_name);
 
-        imageView.setImageResource(image[position]);
+        imageView.setImageResource(Integer.parseInt(imgs.get(position)));
         textView.setText(pokemons[position].getName());
 
         return convertView;

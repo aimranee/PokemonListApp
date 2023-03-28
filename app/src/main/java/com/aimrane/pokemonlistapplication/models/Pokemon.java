@@ -1,14 +1,18 @@
-package com.aimrane.pokemonlistapplication;
+package com.aimrane.pokemonlistapplication.models;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Pokemon {
     private int id;
+    @SerializedName("name")
     private String name;
-    private int image;
+    @SerializedName("url")
+    private String image;
     private String height;
     private String cat;
     private String gender;
 
-    public Pokemon(int id, String name, int image, String height, String cat, String gender) {
+    public Pokemon(int id, String name, String image, String height, String cat, String gender) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -25,11 +29,11 @@ public class Pokemon {
         this.id = id;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
