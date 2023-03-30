@@ -1,11 +1,14 @@
 package com.aimrane.pokemonlistapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.AdapterView;
 
@@ -25,14 +28,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private GridView gridView;
+    private Retrofit retrofit;
+    private RecyclerView recyclerView;
+    private PokemonsItemsAdapter pokemonsItemsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        List<String> data = new ArrayList<>();
-        List<String> imgs = new ArrayList<>();
+        /*List<String> data = new ArrayList<>();
+        List<String> imgs = new ArrayList<>();*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.gridView = (GridView)findViewById(R.id.gridView);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        pokemonsItemsAdapter = new PokemonsItemsAdapter();
+        recyclerView.setAdapter(pokemonsItemsAdapter);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //this.gridView = (GridView)findViewById(R.id.gridView);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://pokeapi.co/api/v2/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        getData();
         /*Pokemon[] pokemons = new Pokemon[]{
                 //new Pokemon(1,"khlkj", 1, "yuiop","rtyu","fdgdf"),
                 new Pokemon(2,"khlkj", 2, "yuiop","rtyu","fdgdf"),
@@ -45,16 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 new Pokemon(5,"khlkj", 5, "yuiop","rtyu","fdgdf")
                 //new Pokemon(6,"khlkj", 6, "yuiop","rtyu","fdgdf"),
                 //new Pokemon(7,"khlkj", 7, "yuiop","rtyu","fdgdf")
-        };*/
+        };
 
-
-        final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        final RepoServiceApi repoServiceApi = retrofit.create(RepoServiceApi.class);
-        Call<PokemonsList> callPokemons = repoServiceApi.pokemonList();
         callPokemons.enqueue(new Callback<PokemonsList>() {
             @Override
             public void onResponse(Call<PokemonsList> call, Response<PokemonsList> response) {
@@ -65,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 PokemonsList pokemonsList = response.body();
                 for (Pokemon pokemon : pokemonsList.getPokemons()){
                     data.add(pokemon.getName());
-                    imgs.add(pokemon.getImage());
+                    //imgs.add(pokemon.getImage());
                 }
             }
 
@@ -73,13 +84,13 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<PokemonsList> call, Throwable t) {
                 Log.e("error","Error");
             }
-        });
+        });*/
 
         //int [] imgs = {R.drawable._02,R.drawable._03,R.drawable._04,R.drawable._07,R.drawable._02,R.drawable._03,R.drawable._04,R.drawable._07};
         //ArrayAdapter<Pokemon> arrayAdapter = new ArrayAdapter<Pokemon>(this, android.R.layout.simple_list_item_1, pokemons);
-        GridAdapter gridAdapter = new GridAdapter(MainActivity.this, data, imgs);
+        //GridAdapter gridAdapter = new GridAdapter(MainActivity.this, data, imgs);
 
-        gridView.setAdapter(gridAdapter);
+        //gridView.setAdapter(gridAdapter);
 
         /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,5 +102,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent); // start Intent
             }
         });*/
+    }
+
+    private void getData() {
+
+        RepoServiceApi repoServiceApi = retrofit.create(RepoServiceApi.class);
+        Call<PokemonsList> callPokemons = repoServiceApi.pokemonList();
+
+        callPokemons.enqueue(new Callback<PokemonsList>() {
+            @Override
+            public void onResponse(Call<PokemonsList> call, Response<PokemonsList> response) {
+                if(response.isSuccessful()){
+                    PokemonsList pokemonsList = response.body();
+                    ArrayList<Pokemon> pokemonArrayList = pokemonsList.getPokemons();
+                    pokemonsItemsAdapter.listOfPokemons(pokemonArrayList);
+                }else{
+                    Log.i("into", String.valueOf(response.code()));
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PokemonsList> call, Throwable t) {
+                Log.e("error","Error");
+            }
+        });
     }
 }

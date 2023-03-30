@@ -9,10 +9,7 @@ public class PokemonsList {
     @SerializedName("count")
     private int totalPok;
     @SerializedName("results")
-    private List<Pokemon> pokemons = new ArrayList<>();
-
-    public PokemonsList() {
-    }
+    private ArrayList<Pokemon> pokemons;
 
     public int getTotalPok() {
         return totalPok;
@@ -22,11 +19,11 @@ public class PokemonsList {
         this.totalPok = totalPok;
     }
 
-    public List<Pokemon> getPokemons() {
+    public ArrayList<Pokemon> getPokemons() {
         return pokemons;
     }
 
-    public void setPokemons(List<Pokemon> pokemons) {
+    public void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 }

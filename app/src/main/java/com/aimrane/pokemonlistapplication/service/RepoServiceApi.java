@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 
 public interface RepoServiceApi {
 
-    @GET("api/v2/pokemon")
+    @GET("pokemon")
     public Call<PokemonsList> pokemonList();
 }
