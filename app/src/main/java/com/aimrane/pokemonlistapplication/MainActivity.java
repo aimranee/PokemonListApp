@@ -1,5 +1,6 @@
 package com.aimrane.pokemonlistapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private RecyclerView recyclerView;
     private PokemonsItemsAdapter pokemonsItemsAdapter;
+    private int offset;
+
+    private boolean done;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /*List<String> data = new ArrayList<>();
@@ -39,11 +43,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        pokemonsItemsAdapter = new PokemonsItemsAdapter();
+        pokemonsItemsAdapter = new PokemonsItemsAdapter(this);
         recyclerView.setAdapter(pokemonsItemsAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (done){
+                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount){
+                            Log.i("info", "Fin de la list");
+                            done = false;
+                            offset +=20;
+                            getData(offset);
+                        }
+                    }
+                }
+            }
+        });
 
         //this.gridView = (GridView)findViewById(R.id.gridView);
 
@@ -51,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl("https://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        getData();
+        done = true;
+        offset = 0;
+        getData(offset);
         /*Pokemon[] pokemons = new Pokemon[]{
                 //new Pokemon(1,"khlkj", 1, "yuiop","rtyu","fdgdf"),
                 new Pokemon(2,"khlkj", 2, "yuiop","rtyu","fdgdf"),
@@ -104,14 +130,15 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
-    private void getData() {
+    private void getData(int offset) {
 
         RepoServiceApi repoServiceApi = retrofit.create(RepoServiceApi.class);
-        Call<PokemonsList> callPokemons = repoServiceApi.pokemonList();
+        Call<PokemonsList> callPokemons = repoServiceApi.pokemonList(20, offset);
 
         callPokemons.enqueue(new Callback<PokemonsList>() {
             @Override
             public void onResponse(Call<PokemonsList> call, Response<PokemonsList> response) {
+                done = true;
                 if(response.isSuccessful()){
                     PokemonsList pokemonsList = response.body();
                     ArrayList<Pokemon> pokemonArrayList = pokemonsList.getPokemons();
@@ -125,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PokemonsList> call, Throwable t) {
+                done = true;
                 Log.e("error","Error");
             }
         });

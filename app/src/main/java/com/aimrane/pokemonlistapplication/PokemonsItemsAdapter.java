@@ -1,5 +1,6 @@
 package com.aimrane.pokemonlistapplication;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aimrane.pokemonlistapplication.models.Pokemon;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
 public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdapter.ViewHolder>{
     private ArrayList<Pokemon> dataset;
+    private Context context;
 
-    public PokemonsItemsAdapter() {
+    public PokemonsItemsAdapter(Context context)
+    {
+        this.context = context;
         dataset = new ArrayList<>();
     }
 
@@ -31,6 +37,11 @@ public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pokemon p = dataset.get(position);
         holder.item_name.setText(p.getName());
+        Glide.with(context)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+p.getNumber()+".png")
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.grid_image);
     }
 
     @Override
