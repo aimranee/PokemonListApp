@@ -55,17 +55,17 @@ public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdap
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-
         private ImageView grid_image;
         private TextView item_name;
 
         public ViewHolder(View itemView){
             super(itemView);
-
             grid_image = (ImageView) itemView.findViewById(R.id.grid_image);
             item_name = (TextView) itemView.findViewById(R.id.item_name);
-
         }
+    }
 
+    public ArrayList<Pokemon> getDataset() {
+        return dataset;
     }
 }
