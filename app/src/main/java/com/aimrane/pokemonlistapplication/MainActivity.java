@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean done;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*List<String> data = new ArrayList<>();
-        List<String> imgs = new ArrayList<>();*/
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -80,14 +79,13 @@ public class MainActivity extends AppCompatActivity {
         offset = 0;
         getData(offset);
 
-        //gridView.setAdapter(gridAdapter);
-
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                 @Override public void onItemClick(View view, int position) {
                     // do whatever
                     Intent intent = new Intent(MainActivity.this, GridItemActivity.class);
-                    intent.putExtra("name", pkList.get(position).getName());// put url data in Intent
+                    //intent.putExtra("name", pkList.get(position).getName());// put url data in Intent
+                    intent.putExtra("id", position+1);// put url data in Intent
                     startActivity(intent);
                 }
 

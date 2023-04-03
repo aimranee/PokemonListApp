@@ -26,15 +26,14 @@ public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdap
         dataset = new ArrayList<>();
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Pokemon p = dataset.get(position);
         holder.item_name.setText(p.getName());
         Glide.with(context)

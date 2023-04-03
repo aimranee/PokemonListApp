@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.SplittableRandom;
 
 public class PokemonInfo {
+    public PokemonInfo() {
+    }
+
+    public final int maxHP = 300;
+    public final int maxATK = 300;
+    public final int maxDEF = 300;
+    public final int maxSPD = 300;
+    public final int maxEXP = 1000;
 
     private String name;
 

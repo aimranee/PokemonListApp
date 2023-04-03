@@ -15,6 +15,6 @@ public interface RepoServiceApi {
     @GET("pokemon")
     public Call<PokemonsList> pokemonList(@Query("limit") int limit, @Query("offset") int offset);
 
-    @GET("pokemon/{name}")
-    Call <PokemonInfo> pokemonInfo(@Path("name") String name);
+    @GET("pokemon/{id}")
+    Call <PokemonInfo> pokemonInfo(@Path("id") int id);
 }

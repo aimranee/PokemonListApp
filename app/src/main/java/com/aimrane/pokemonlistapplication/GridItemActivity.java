@@ -16,6 +16,8 @@ import com.aimrane.pokemonlistapplication.models.PokemonsList;
 import com.aimrane.pokemonlistapplication.models.StatesPkemon;
 import com.aimrane.pokemonlistapplication.models.TypesResponse;
 import com.aimrane.pokemonlistapplication.service.RepoServiceApi;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +30,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GridItemActivity extends AppCompatActivity {
 
-    private TextView textView;
-    private ImageView selectedImage;
+    private TextView namePoke;
+    private TextView withPoke;
+    private TextView heightPoke;
+    private ImageView imagePoke;
     private Retrofit retrofit;
-    private String name;
-    //private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private PokemonInfo pkInfo;
+    private PokemonsItemsAdapter pokemonsItemsAdapter;
+    private int id;
     private final static MutableLiveData<PokemonInfo> pokemonInfoLiveData = new MutableLiveData<>();
     private final static MutableLiveData<Boolean> progressBarLiveData = new MutableLiveData<>();
     private final static MutableLiveData<String> toastLiveData = new MutableLiveData<>();
@@ -41,12 +46,19 @@ public class GridItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_item);
+        setContentView(R.layout.fragment_detail);
 
-        selectedImage = (ImageView) findViewById(R.id.grid_image); // init a ImageView
-        textView = (TextView) findViewById(R.id.item_name); // init a ImageView
+        imagePoke = (ImageView) findViewById(R.id.imagePoke); // init a ImageView
+        namePoke = (TextView) findViewById(R.id.namePoke); // init a ImageView
+        withPoke = (TextView) findViewById(R.id.weight); // init a ImageView
+        heightPoke = (TextView) findViewById(R.id.height); // init a ImageView
         Intent intent = getIntent(); // get Intent which we set from Previous Activity4
-        name = intent.getStringExtra("name");
+        id = intent.getIntExtra("id",0);
+        Glide.with(this)
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+id+".png")
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imagePoke);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
@@ -54,17 +66,16 @@ public class GridItemActivity extends AppCompatActivity {
                 .build();
 
         RepoServiceApi repoServiceApi = retrofit.create(RepoServiceApi.class);
-        Call <PokemonInfo> pokemonInfo = repoServiceApi.pokemonInfo(name);
+        Call <PokemonInfo> pokemonInfo = repoServiceApi.pokemonInfo(id);
 
         pokemonInfo.enqueue(new Callback<PokemonInfo>() {
 
             @Override
             public void onResponse(Call<PokemonInfo> call, Response<PokemonInfo> response) {
                 if(response.isSuccessful()){
+
                     PokemonInfo pokemonInfo = response.body();
 
-                    String heightFormatted = String.format("%.1f M", (float) pokemonInfo.getHeight() / 10);
-                    String weightFormatted = String.format("%.1f KG", (float) pokemonInfo.getWeight() / 10);
 
                     //Get name of types Pokemon and Color Types
                     List<TypesResponse> typesList = pokemonInfo.getTypes();
@@ -85,10 +96,14 @@ public class GridItemActivity extends AppCompatActivity {
                         stateData.add(new StatesPkemon(stateName,baseState));
                     }
 
-                    PokemonInfo pkInfo = new PokemonInfo(name, stateData, typesData, pokemonInfo.getHeight(), pokemonInfo.getHeight());
-                    System.out.println(pkInfo.toString());
-                    /*progressBarLiveData.setValue(false);
-                    pokemonInfoLiveData.setValue(pkInfo);*/
+                    pkInfo = new PokemonInfo(pokemonInfo.getName(), stateData, typesData, pokemonInfo.getHeight(), pokemonInfo.getHeight());
+                    namePoke.setText(pkInfo.getName());
+                    String heightFormatted = String.format("%.1f M", (float) pkInfo.getHeight() / 1);
+                    String weightFormatted = String.format("%.1f KG", (float) pkInfo.getWeight() / 1);
+                    heightPoke.setText(heightFormatted);
+                    withPoke.setText(weightFormatted);
+                    progressBarLiveData.setValue(false);
+                    pokemonInfoLiveData.setValue(pkInfo);
                 }else{
                     Log.e("Info", String.valueOf(response.code()));
                     return;
@@ -100,5 +115,7 @@ public class GridItemActivity extends AppCompatActivity {
                 Log.e("Info", " Error: " + t.getMessage());
             }
         });
+
+
     }
 }
