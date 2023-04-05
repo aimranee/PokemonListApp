@@ -49,10 +49,11 @@
 
         <TextView
             android:id="@+id/namePoke"
-            android:layout_width="match_parent"
+            android:layout_width="248dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardView"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="21dp"
             android:gravity="center"
             android:maxLines="1"
             android:textAppearance="@style/Platform.MaterialComponents.Light"
@@ -60,18 +61,35 @@
             android:textSize="35sp"
             android:textStyle="bold" />
 
-       <!-- <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/typeList"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_below="@+id/namePoke"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:scrollbars="none"
-            android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/type_item"/>-->
+        <TextView
+            android:id="@+id/type1Poke"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:layout_below="@+id/cardView"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="40dp"
+            android:background="#FF5656"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAppearance="@style/Platform.MaterialComponents.Light"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/type2Poke"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:layout_below="@+id/cardView"
+            android:layout_marginStart="320dp"
+            android:layout_marginTop="40dp"
+            android:background="#11B0D1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAppearance="@style/Platform.MaterialComponents.Light"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/weight"
@@ -150,13 +168,22 @@
                 android:textColor="#999999"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/hpVal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:text="300/300"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <com.skydoves.progressview.ProgressView
                 android:id="@+id/progress_hp"
                 android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:layout_marginStart="70dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="96dp"
                 app:progressView_animation="bounce"
                 app:progressView_colorBackground="#BDBFC4"
                 app:progressView_colorProgress="#FF5656"
@@ -186,13 +213,22 @@
                 android:textColor="#999999"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/atkVal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:text="300/300"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <com.skydoves.progressview.ProgressView
                 android:id="@+id/progress_atk"
                 android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:layout_marginStart="70dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="96dp"
                 app:progressView_animation="bounce"
                 app:progressView_colorBackground="#BDBFC4"
                 app:progressView_colorProgress="#11B0D1"
@@ -222,13 +258,22 @@
                 android:textColor="#999999"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/defVal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:text="300/300"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <com.skydoves.progressview.ProgressView
                 android:id="@+id/progress_def"
                 android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:layout_marginStart="70dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="96dp"
                 app:progressView_animation="bounce"
                 app:progressView_colorBackground="#BDBFC4"
                 app:progressView_colorProgress="#F970A1"
@@ -258,13 +303,22 @@
                 android:textColor="#999999"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/spdVal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:text="300/300"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <com.skydoves.progressview.ProgressView
                 android:id="@+id/progress_spd"
                 android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:layout_marginStart="70dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="96dp"
                 app:progressView_animation="bounce"
                 app:progressView_colorBackground="#BDBFC4"
                 app:progressView_colorProgress="#5AC18E"
@@ -295,12 +349,22 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/expVal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:text="1000/1000"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <com.skydoves.progressview.ProgressView
                 android:id="@+id/progress_exp"
                 android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:layout_marginStart="70dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="96dp"
                 app:progressView_animation="bounce"
                 app:progressView_colorBackground="#BDBFC4"
                 app:progressView_colorProgress="#7DB0DF"

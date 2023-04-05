@@ -21,6 +21,8 @@ public class PokemonInfo {
     private List<StatesPkemon> stats;
     @SerializedName("types")
     private List<TypesResponse> types;
+    @SerializedName("base_experience")
+    private int baseExperience;
 
     @SerializedName("height")
     private int height;
@@ -29,6 +31,10 @@ public class PokemonInfo {
     @SerializedName("weight")
     private int weight;
     public String weightFormatted;
+
+    public int getBaseExperience() {
+        return baseExperience;
+    }
 
     public String getName() {
         return name;
@@ -50,10 +56,11 @@ public class PokemonInfo {
         return stats;
     }
 
-    public PokemonInfo(String name, List<StatesPkemon> stats, List<TypesResponse> types, int height, int weight) {
+    public PokemonInfo(String name, List<StatesPkemon> stats, List<TypesResponse> types, int baseExperience, int height, int weight) {
         this.name = name;
         this.stats = stats;
         this.types = types;
+        this.baseExperience = baseExperience;
         this.height = height;
         this.weight = weight;
     }
