@@ -45,6 +45,20 @@
                 android:scaleType="fitXY"
                 tools:ignore="ContentDescription" />
 
+            <TextView
+                android:id="@+id/type2Poke"
+                android:layout_width="60dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="320dp"
+                android:layout_marginTop="40dp"
+                android:background="#11B0D1"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textAppearance="@style/Platform.MaterialComponents.Light"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -59,36 +73,6 @@
             android:textAppearance="@style/Platform.MaterialComponents.Light"
             android:textColor="#738A93"
             android:textSize="35sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/type1Poke"
-            android:layout_width="60dp"
-            android:layout_height="27dp"
-            android:layout_below="@+id/cardView"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="40dp"
-            android:background="#FF5656"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textAppearance="@style/Platform.MaterialComponents.Light"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/type2Poke"
-            android:layout_width="60dp"
-            android:layout_height="27dp"
-            android:layout_below="@+id/cardView"
-            android:layout_marginStart="320dp"
-            android:layout_marginTop="40dp"
-            android:background="#11B0D1"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textAppearance="@style/Platform.MaterialComponents.Light"
-            android:textColor="@color/white"
-            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView

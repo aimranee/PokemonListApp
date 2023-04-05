@@ -74,13 +74,12 @@ public class GridItemActivity extends AppCompatActivity {
         defVal = (TextView) findViewById(R.id.defVal);
         spdVal = (TextView) findViewById(R.id.spdVal);
         expVal = (TextView) findViewById(R.id.expVal);
-        type1 = (TextView) findViewById(R.id.type1Poke);
         type2 = (TextView) findViewById(R.id.type2Poke);
 
         Intent intent = getIntent(); // get Intent which we set from Previous Activity4
         id = intent.getIntExtra("id",0);
         Glide.with(this)
-                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+id+".png")
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+id+".png")
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imagePoke);
@@ -110,8 +109,6 @@ public class GridItemActivity extends AppCompatActivity {
                         //System.out.println("     ::"+nameType);
                         typesData.add(new TypesResponse(nameType));
                         if(i==0)
-                            type1.setText(type.getType().getName());
-                        if(i==1)
                             type2.setText(type.getType().getName());
                     }
 

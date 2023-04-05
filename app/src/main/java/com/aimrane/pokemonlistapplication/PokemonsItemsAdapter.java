@@ -1,6 +1,8 @@
 package com.aimrane.pokemonlistapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdapter.ViewHolder>{
     private ArrayList<Pokemon> dataset;
@@ -37,11 +40,12 @@ public class PokemonsItemsAdapter extends RecyclerView.Adapter<PokemonsItemsAdap
         Pokemon p = dataset.get(position);
         holder.item_name.setText(p.getName());
         Glide.with(context)
-                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+p.getNumber()+".png")
+                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/"+p.getNumber()+".png")
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.grid_image);
     }
+
 
     @Override
     public int getItemCount() {
