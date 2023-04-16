@@ -7,3 +7,5 @@ Quelques exemples de sprites :
 Bannière d'exemples de Pokésprite Gen 8
 
 Ces sprites peuvent être utilisés en tant que fichiers individuels ou accessibles par programmation à l'aide des fichiers de base de données de sprites inclus.
+
+gestion des APIs : Retrofit
